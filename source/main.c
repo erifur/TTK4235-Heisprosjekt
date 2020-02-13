@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "hardware.h"
+#include "queue.h"
 
 static void clear_all_order_lights(){
     HardwareOrder order_types[3] = {
