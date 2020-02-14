@@ -7,7 +7,7 @@ static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {0};
 
 static int queue[QUEUE_NUMBER_OF_FLOORS] = {0};
 
-void queue_set_request(int floor, int order_type){
+void queue_set_request(int floor, QueueOrder order_type){
     switch(order_type){
         case QUEUE_ORDER_UP :
             requests_up[floor - 1] = true;
@@ -64,7 +64,7 @@ void queue_clear_floor(int floor){
     }
 }
 
-bool queue_read(int floor, bool dir){
+bool queue_read(int floor, QueueMovement dir){
     // denne må diskuteres, trenger også retning?
 }
 
