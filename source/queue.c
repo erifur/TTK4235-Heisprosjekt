@@ -1,6 +1,5 @@
 #include "queue.h"
 
-
 static bool requests_cab[QUEUE_NUMBER_OF_FLOORS] = {0};
 static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {0};
 static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {0};
@@ -29,7 +28,7 @@ void queue_set_request(int floor, QueueOrder order_type){
     add_to_queue(floor);    // If not, add to queue
 }
 
-static void add_to_queue(int floor){
+static void queue_add_floor(int floor){
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == 0){ // Add floor to first free spot, then return
             queue[i] = floor;
@@ -64,8 +63,23 @@ void queue_clear_floor(int floor){
     }
 }
 
-bool queue_read(int floor, QueueMovement dir){
-    // denne må diskuteres, trenger også retning?
+bool queue_read_floor(int floor, QueueMovement dir){
+    for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
+        if (requests_cab[floor-1] == true){
+            return true;
+        }
+    }
+    if (dir == QUEUE_MOVEMENT_UP){
+        if (requests_up[floor-1] == true){
+            return true;
+        }
+    }
+    if (dir == QUEUE_MOVEMENT_DOWN){
+        if (requests_down[floor-2] == true){
+            return true;
+        }
+    }
+    return false;
 }
 
 int queue_read_next(){

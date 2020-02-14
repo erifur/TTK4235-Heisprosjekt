@@ -34,16 +34,22 @@ void queue_set_request(int floor, QueueOrder order_type);
 /**
 * @brief Removes ALL stored requests. Should be used when stop button is pressed.
 */
-void queue_clear_all_requests();
+static void queue_add_floor(int floor);
 /**
 * @brief Removes all requests on given floor. Should be used when elevator stops at floor.
 * @param floor Remove requests at this floor.
+*/
+void queue_clear_all_requests();
+/**
+* @brief Adds a floor to the first available spot in the queue, if it is not already there.
+* @ floor The floor to be added
 */
 void queue_clear_floor(int floor);
 /**
 * @brief Used to look for relevant requests at specific floor. Used to determine if the elevator should stop when passing by.
 * @param floor The relevant floor.
-* @param
+* @param dir Direction of movement, to decide if the elevator should stop at an order.
+* @return Whether the elevator should make a stop or not.
 */
 bool queue_read_floor(int floor, QueueMovement dir);
 /**
@@ -51,8 +57,3 @@ bool queue_read_floor(int floor, QueueMovement dir);
 * @return Next target floor.
 */
 int queue_read_next();
-/**
-* @brief Adds a floor to the first available spot in the queue, if it is not already there.
-* @
-*/
-static void add_to_queue(int floor);
