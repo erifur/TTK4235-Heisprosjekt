@@ -39,10 +39,12 @@ static void queue_add_floor(int floor){
 }
 
 void queue_clear_all_requests(){
+    // Reset cab and queue
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         queue[i] = 0;
         requests_cab[j] = false;
     }
+    // Reset hall orders, seperate because shorter arrays
     for (int j = 0; j<(QUEUE_NUMBER_OF_FLOORS-1); ++i){
         requests_up[j] = false;
         requests_down[j] = false;
@@ -51,29 +53,32 @@ void queue_clear_all_requests(){
 }
 
 void queue_clear_floor(int floor){
+    // Remove floor from order arrays:
+    requests_up[floor-1] = false;
+    requests_cab[floor-1] = false;
+    requests_down[floor-2] = false;
+    // Remove floor from queue:
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == floor){
             queue[i] = 0;
         }
     }
-    for (int j = 0; i<QUEUE_NUMBER_OF_FLOORS-1; ++i){
-        if (requests_cab[j] == floor){
-            requests_cab[j] = 0;
-        }
-    }
 }
 
 bool queue_read_floor(int floor, QueueMovement dir){
+    // Cab order to floor, should always stop:
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (requests_cab[floor-1] == true){
             return true;
         }
     }
+    // If moving up, take requests going up
     if (dir == QUEUE_MOVEMENT_UP){
         if (requests_up[floor-1] == true){
             return true;
         }
     }
+    // If moving down, take requests going down
     if (dir == QUEUE_MOVEMENT_DOWN){
         if (requests_down[floor-2] == true){
             return true;
