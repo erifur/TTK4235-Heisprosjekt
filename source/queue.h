@@ -4,6 +4,7 @@
  *
  */
 #include <stdbool.h>
+#include <stdio.h>
 
 #define QUEUE_NUMBER_OF_FLOORS 4
 
@@ -13,7 +14,7 @@
 typedef enum{
     QUEUE_MOVEMENT_UP,
     QUEUE_MOVEMENT_DOWN
-} QueueMovement
+} QueueMovement;
 
 /**
 * @brief Used for interaction between main and queue regarding request type. Used primarily to set requests.
@@ -45,6 +46,11 @@ void queue_clear_all_requests();
 * @ floor The floor to be added
 */
 void queue_clear_floor(int floor);
+/**
+ * @brief Ensures that if there are elements in the queue, they will appear first. Should be used immediately after removing an element from the queue.
+ */
+static void queue_push_to_front();
+
 /**
 * @brief Used to look for relevant requests at specific floor. Used to determine if the elevator should stop when passing by.
 * @param floor The relevant floor.
