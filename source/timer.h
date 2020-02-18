@@ -20,3 +20,4 @@ time_t timer_start();
 *@return when the function is finished it retuns 0
 */
 
+bool is_timer_finished();
