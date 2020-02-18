@@ -62,6 +62,10 @@ int main(){
                 hardware_command_floor_indicator_on(f);
                 elevator_floor = f;
                 elevator_at_floor = true;
+                if(hardware_read_obstruction_signal()){
+                    elevator_state = ELEVATOR_DOOR_OPEN;
+                    new_elevator_state = true;
+                }
             }
         }
         if(!hardware_read_floor_sensor(elevator_floor)){ // left floor
@@ -126,18 +130,18 @@ int main(){
             case ELEVATOR_DOOR_OPEN : // manages the door
             // Init:
                 if(new_elevator_state){
+                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                     hardware_command_door_open(1);
                     queue_clear_floor(elevator_floor);
-                    timer_start(p_start);
+                    timer_start(p_start); // Start timer
                     new_elevator_state = false;
                 }
             // Action:
                 if(hardware_read_obstruction_signal()){
-                    // RESET TIMER (remove and start new timer)
-                    timer_start(p_start);
+                    timer_start(p_start); // Restart timer
                 }
             // Transition:
-                if( is_timer_finished(p_start,p_now) ){
+                if(is_timer_finished(p_start,p_now)){
                     hardware_command_door_open(0);
                     elevator_state = ELEVATOR_IDLE;
                     new_elevator_state = true;
