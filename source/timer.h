@@ -32,4 +32,4 @@ void timer_start(time_t* p_start);
 *@param[in] p_now is continually set to current time
 *@warning this function frees memory allocated in heap
 */
-void end_timer(time_t* p_start, time_t* p_now);
+void free_timer(time_t* p_start, time_t* p_now);
