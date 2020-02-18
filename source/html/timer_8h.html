@@ -77,24 +77,72 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#af2edcf2d8d89ef68e5e7fba5860aeaac">timer_start</a> ()</td></tr>
-<tr class="memdesc:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the current time to the start-time for the timer  <a href="timer_8h.html#af2edcf2d8d89ef68e5e7fba5860aeaac">More...</a><br /></td></tr>
-<tr class="separator:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2748ae676eb81cdd274ee0d2cbe48a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#ad2748ae676eb81cdd274ee0d2cbe48a2">timer_start</a> (time_t *p_start)</td></tr>
+<tr class="memdesc:ad2748ae676eb81cdd274ee0d2cbe48a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the current time to the start-time for the timer  <a href="timer_8h.html#ad2748ae676eb81cdd274ee0d2cbe48a2">More...</a><br /></td></tr>
+<tr class="separator:ad2748ae676eb81cdd274ee0d2cbe48a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c6231ff58fadb02d602e1691bc90af"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#ad6c6231ff58fadb02d602e1691bc90af">is_timer_finished</a> (time_t *p_start, time_t *p_now)</td></tr>
+<tr class="memdesc:ad6c6231ff58fadb02d602e1691bc90af"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the difference in time between the start time set by <a class="el" href="timer_8h.html#ad2748ae676eb81cdd274ee0d2cbe48a2">timer_start()</a>  <a href="timer_8h.html#ad6c6231ff58fadb02d602e1691bc90af">More...</a><br /></td></tr>
+<tr class="separator:ad6c6231ff58fadb02d602e1691bc90af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6693bd5aba5b02880379bfb2b30d5c88"><td class="memItemLeft" align="right" valign="top"><a id="a6693bd5aba5b02880379bfb2b30d5c88"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a6693bd5aba5b02880379bfb2b30d5c88">end_timers</a> (time_t *p_start, time_t *p_now)</td></tr>
+<tr class="memdesc:a6693bd5aba5b02880379bfb2b30d5c88"><td class="mdescLeft">&#160;</td><td class="mdescRight">frees the time_t pointers to deallocate memory <br /></td></tr>
+<tr class="separator:a6693bd5aba5b02880379bfb2b30d5c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>declaration of the timer module for the elevator <br  />
  </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="af2edcf2d8d89ef68e5e7fba5860aeaac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2edcf2d8d89ef68e5e7fba5860aeaac">&#9670;&nbsp;</a></span>timer_start()</h2>
+<a id="ad6c6231ff58fadb02d602e1691bc90af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c6231ff58fadb02d602e1691bc90af">&#9670;&nbsp;</a></span>is_timer_finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">time_t timer_start </td>
+          <td class="memname">bool is_timer_finished </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">time_t *&#160;</td>
+          <td class="paramname"><em>p_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">time_t *&#160;</td>
+          <td class="paramname"><em>p_now</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>calculates the difference in time between the start time set by <a class="el" href="timer_8h.html#ad2748ae676eb81cdd274ee0d2cbe48a2">timer_start()</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">timer_length</td><td>the time between current time and "now"-time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_start</td><td>points to the value set by <a class="el" href="timer_8h.html#ad2748ae676eb81cdd274ee0d2cbe48a2">timer_start(time_t* p_start)</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_now</td><td>is continually set to current time </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>if the difference between <code>p_now</code> and <code>p_start</code> is less than <code>timer_length</code> it will return 0, else it will free the <code>p_now</code> and <code>p_start</code> and return 1 </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>this function is using pointers that are dynamically allocated </dd></dl>
+
+</div>
+</div>
+<a id="ad2748ae676eb81cdd274ee0d2cbe48a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2748ae676eb81cdd274ee0d2cbe48a2">&#9670;&nbsp;</a></span>timer_start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void timer_start </td>
+          <td>(</td>
+          <td class="paramtype">time_t *&#160;</td>
+          <td class="paramname"><em>p_start</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -103,11 +151,11 @@ Functions</h2></td></tr>
 <p>sets the current time to the start-time for the timer </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">start</td><td>current time </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p_start</td><td>is set to current time at call of function </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>this function is using a pointer that is dynamically allocated </dd></dl>
 
 </div>
 </div>

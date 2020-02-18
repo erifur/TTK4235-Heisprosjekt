@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['timer_2eh_21',['timer.h',['../timer_8h.html',1,'']]],
-  ['timer_5fstart_22',['timer_start',['../timer_8h.html#af2edcf2d8d89ef68e5e7fba5860aeaac',1,'timer.c']]]
+  ['is_5ftimer_5ffinished_14',['is_timer_finished',['../timer_8h.html#ad6c6231ff58fadb02d602e1691bc90af',1,'timer.c']]]
 ];
