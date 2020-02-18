@@ -8,16 +8,28 @@
 
 /**
 *@brief sets the current time to the start-time for the timer
-*@param start current time
-*@return
+*@param[in] p_start is set to current time at call of function
+**@warning this function is using a pointer that is dynamically allocated 
 */
-time_t timer_start();
+void timer_start(time_t* p_start);
 
 /**
 *@brief calculates the difference in time between the start time
-* /// set by {@link timer_start()} 
+*set by {@link timer_start()} 
 *@param timer_length the time between current time and "now"-time
-*@return when the function is finished it retuns 0
+*@param[in] p_start points to the value set by {@link timer_start(time_t* p_start)}
+*@param[in] p_now is continually set to current time
+*@return if the difference between \p p_now and \p p_start is less than \p timer_length it will return 0,
+* else it will free the \p p_now and \p p_start and return 1
+*@warning this function is using pointers that are dynamically allocated
 */
+ bool is_timer_finished(time_t* p_start, time_t* p_now);
 
-bool is_timer_finished();
+
+/**
+*@brief frees the time_t pointers to deallocate memory
+*@param[in] p_start points to the value set by {@link timer_start(time_t* p_start)}
+*@param[in] p_now is continually set to current time
+*@warning this function frees memory allocated in heap
+*/
+void end_timer(time_t* p_start, time_t* p_now);

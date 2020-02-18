@@ -8,20 +8,41 @@ time_t timer_start(){
     return start;
  }
 
- bool is_timer_finished(time_t start){
+
+void timer_start(time_t* p_start){
+
+    time(&*p_start);   
+
+ }
+
+ void end_timer(time_t* p_start, time_t* p_now)
+ {
+     /*
+     p_start=NULL;
+     p_now=NULL;
+     check if necessary
+     */
+
+    free(p_start);
+    free(p_now);
+ }
+ 
+ bool is_timer_finished(time_t* p_start, time_t* p_now){
 
      double timer_length = 3;
-     time_t now;
-     time(&now);
+     time(&*p_now);
 
-    while(difftime(now,start)<timer_length)
+    if(difftime(*p_now,*p_start)<timer_length)
     {
-        //printf("start: %s", ctime(&start));
-        //printf("now: %s", ctime(& now));
-
-        //printf("difftime: %0.2f \n", (float)difftime(now,start));
-        time(&now);
+        time(&*p_now);
+    }
+    else
+    {
+        end_timers(p_start,p_now);
+        return 1;   
     }
 
-    return 1;
+    return 0;
  }
+
+
