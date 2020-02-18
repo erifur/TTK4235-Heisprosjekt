@@ -3,7 +3,6 @@
 static bool requests_cab[QUEUE_NUMBER_OF_FLOORS] = {0};
 static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {0};
 static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {0};
-
 static int queue[QUEUE_NUMBER_OF_FLOORS] = {0};
 
 void queue_set_request(int floor, QueueOrder order_type){
@@ -20,7 +19,6 @@ void queue_set_request(int floor, QueueOrder order_type){
             //index=floor-2 because starts at floor 2
             break;
     }
-    
     // Check if floor already in queue:
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == floor){ return; }   // Return if floor in queue
