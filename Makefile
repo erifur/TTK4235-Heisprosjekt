@@ -32,3 +32,6 @@ $(DRIVER_ARCHIVE) : $(DRIVER_SOURCE:%.c=$(BUILD_DIR)/driver/%.o)
 .PHONY: clean
 clean :
 	rm -rf $(BUILD_DIR) elevator
+
+
+# gcc main.c hardware.h queue.h queue.c timer.c timer.h driver/channels.h driver/hardware.c driver/io.c driver/io.h -o heistest
