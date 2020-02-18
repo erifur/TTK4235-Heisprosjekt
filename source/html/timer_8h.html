@@ -77,22 +77,22 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4b71468423236a99e4efe6c58f6ff10b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#a4b71468423236a99e4efe6c58f6ff10b">timer</a> ()</td></tr>
-<tr class="memdesc:a4b71468423236a99e4efe6c58f6ff10b"><td class="mdescLeft">&#160;</td><td class="mdescRight">uses a sleep function to wait three seconds  <a href="timer_8h.html#a4b71468423236a99e4efe6c58f6ff10b">More...</a><br /></td></tr>
-<tr class="separator:a4b71468423236a99e4efe6c58f6ff10b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="timer_8h.html#af2edcf2d8d89ef68e5e7fba5860aeaac">timer_start</a> ()</td></tr>
+<tr class="memdesc:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the current time to the start-time for the timer  <a href="timer_8h.html#af2edcf2d8d89ef68e5e7fba5860aeaac">More...</a><br /></td></tr>
+<tr class="separator:af2edcf2d8d89ef68e5e7fba5860aeaac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>declaration of the timer module for the elevator <br  />
  </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a4b71468423236a99e4efe6c58f6ff10b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b71468423236a99e4efe6c58f6ff10b">&#9670;&nbsp;</a></span>timer()</h2>
+<a id="af2edcf2d8d89ef68e5e7fba5860aeaac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2edcf2d8d89ef68e5e7fba5860aeaac">&#9670;&nbsp;</a></span>timer_start()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int timer </td>
+          <td class="memname">time_t timer_start </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -100,16 +100,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>uses a sleep function to wait three seconds </p>
+<p>sets the current time to the start-time for the timer </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timer_value</td><td>the timer value in seconds </td></tr>
+    <tr><td class="paramname">start</td><td>current time </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the function always returns zero after <code>timer_value</code> amount of seconds </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>this function uses different libraries depending if it's running on Linux or Windows </dd></dl>
-<p>timer value in seconds</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
