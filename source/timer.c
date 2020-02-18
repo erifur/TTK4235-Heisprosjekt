@@ -16,9 +16,7 @@ int timer(){
 return 0; //returning zero turns of door light
  }
 /* use function like this:
-
     hardware_command_door_open(1) - opens door
     hardware_comman_door_open(timer()) - closes door after timer_value seconds
-
 */
     

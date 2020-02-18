@@ -14,7 +14,7 @@
 /**
 *@brief uses a sleep function to wait three seconds
 *@param timer_value the timer value in seconds
-*@return the function always returns zero after \p timer_value amount of seconds
+*@return the function always returns zero after \ p timer_value amount of seconds
 *@warning this function uses different libraries depending if it's running on Linux or Windows
 */
 int timer();
