@@ -1,22 +1,27 @@
- #include "timer.h"
+#include "timer.h"
 
-int timer(){
-    unsigned int timer_value = 3; /** timer value in seconds */
+time_t timer_start(){
 
-    #ifdef LINUX
-    usleep(timer_value * 1000000);   // usleep takes sleep time in us (1 millionth of a second)
-    #endif
+    time_t start;
+    time(&start);   
 
-    #ifdef WINDOWS
-    Sleep(timer_value);
-    #endif
-
-    sleep(timer_value*1000) /* sleep uses miliseconds*/
-
-return 0; //returning zero turns of door light
+    return start;
  }
-/* use function like this:
-    hardware_command_door_open(1) - opens door
-    hardware_comman_door_open(timer()) - closes door after timer_value seconds
-*/
-    
+
+ bool is_timer_finished(time_t start){
+
+     double timer_length = 3;
+     time_t now;
+     time(&now);
+
+    while(difftime(now,start)<timer_length)
+    {
+        //printf("start: %s", ctime(&start));
+        //printf("now: %s", ctime(& now));
+
+        //printf("difftime: %0.2f \n", (float)difftime(now,start));
+        time(&now);
+    }
+
+    return 1;
+ }
