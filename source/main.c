@@ -50,6 +50,10 @@ int main(){
         
         
         // CONTROLLING HARDWARE (FSM):
+        
+        next_request = queue_read_next();
+        
+        // CONTROLLING HARDWARE (FSM):
         // Idea: Actions are continuous in a state, transitions are
         // event-based, move between states, and happen only IF(...)
         
