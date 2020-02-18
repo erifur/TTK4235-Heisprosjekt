@@ -15,22 +15,6 @@ typedef enum {
 
 ElevatorState elevator_state = ELEVATOR_IDLE; // No request
 
-static bool elevator_decide_stop(HardwareMovement elevator_dir){
-    if(elevator_at_floor){ // Elevator at floor
-        if(elevator_dir == HARDWARE_MOVEMENT_UP){ // going up
-            if(queue_read_floor(f, QUEUE_MOVEMENT_UP)){ // relevant request
-                return true;
-            }
-        }
-        if(elevator_dir == HARDWARE_MOVEMENT_DOWN){ // going down
-            if(queue_read_floor(f, QUEUE_MOVEMENT_DOWN)){ // relevant request
-                return true;
-            }
-        }
-    }
-}
-
-
 int main(){
     
     bool elevator_at_floor; // Is the elevator at a floor
@@ -103,7 +87,7 @@ int main(){
             case ELEVATOR_MOVING : // moving to floor
             // Init:
                 if(new_elevator_state){
-                    else if(next_request > elevator_floor){ // request above
+                    if(next_request > elevator_floor){ // request above
                         elevator_dir = HARDWARE_MOVEMENT_UP;
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
                     }
@@ -114,11 +98,22 @@ int main(){
                     new_elevator_state = false;
                 }
             // Transition:
-                if(elevator_decide_stop(elevator_dir, elevator_floor)){
-                    elevator_dir = HARDWARE_MOVEMENT_STOP;
-                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                    elevator_state = ELEVATOR_DOOR_OPEN;
-                    new_elevator_state = true;
+                if(elevator_at_floor){ // Elevator at floor
+                    if(elevator_dir == HARDWARE_MOVEMENT_UP){ // going up
+                        if(queue_read_floor(elevator_floor, QUEUE_MOVEMENT_UP)){
+                            elevator_dir = HARDWARE_MOVEMENT_STOP;
+                        }
+                    }
+                    if(elevator_dir == HARDWARE_MOVEMENT_DOWN){ // going down
+                        if(queue_read_floor(elevator_floor, QUEUE_MOVEMENT_DOWN)){
+                            elevator_dir = HARDWARE_MOVEMENT_STOP;
+                        }
+                    }
+                    if(elevator_dir == HARDWARE_MOVEMENT_STOP){
+                        hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                        elevator_state = ELEVATOR_DOOR_OPEN;
+                        new_elevator_state = true;
+                    }
                 }
                 
             case ELEVATOR_DOOR_OPEN : // manages the door
@@ -144,7 +139,6 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                    elevator_dir = HARDWARE_MOVEMENT_STOP
                     queue_clear_all_requests();
                     if(elevator_at_floor){
                         hardware_command_door_open(1);

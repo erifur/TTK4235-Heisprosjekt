@@ -54,7 +54,7 @@ static void queue_push_to_front();
 /**
 * @brief Used to look for relevant requests at specific floor. Used to determine if the elevator should stop when passing by.
 * @param floor The relevant floor.
-* @param dir Direction of movement, to decide if the elevator should stop at an order.
+* @param dir Direction of movement
 * @return Whether the elevator should make a stop or not.
 */
 bool queue_read_floor(int floor, QueueMovement dir);
