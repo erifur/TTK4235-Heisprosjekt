@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: queue.h Source File</title>
+<title>Heisprosjekt: queue.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,7 +21,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Heisprosjekt
    </div>
   </td>
  </tr>
@@ -65,28 +65,40 @@ $(function() {
 <div class="title">queue.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define QUEUE_NUMBER_OF_FLOORS 4</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    QUEUE_ORDER_UP,</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    QUEUE_ORDER_INSIDE,</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    QUEUE_ORDER_DOWN</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;} QueueOrder;</div>
+<a href="queue_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;stdbool.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define QUEUE_NUMBER_OF_FLOORS 4</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> queue_set_request(<span class="keywordtype">int</span> floor, <span class="keywordtype">int</span> order_type);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> queue_clear_all_requests();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> queue_clear_floor(<span class="keywordtype">int</span> floor);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">bool</span> queue_read(<span class="keywordtype">int</span> floor);</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="queue_8h.html#afd0d402a212257f6f374d196ef9c2101">   14</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span>{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    QUEUE_MOVEMENT_UP,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    QUEUE_MOVEMENT_DOWN</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <a class="code" href="queue_8h.html#afd0d402a212257f6f374d196ef9c2101">QueueMovement</a>;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">int</span> queue_read_next();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> add_to_queue(<span class="keywordtype">int</span> floor);</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="queue_8h.html#ab0bbe52579893666d4ed71e1e1bd4c48">   22</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    QUEUE_ORDER_UP,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    QUEUE_ORDER_INSIDE,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    QUEUE_ORDER_DOWN</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <a class="code" href="queue_8h.html#ab0bbe52579893666d4ed71e1e1bd4c48">QueueOrder</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> <a class="code" href="queue_8h.html#af756dfd76164ed0d477eba830ca0f01d">queue_set_request</a>(<span class="keywordtype">int</span> floor, <a class="code" href="queue_8h.html#ab0bbe52579893666d4ed71e1e1bd4c48">QueueOrder</a> order_type);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> queue_add_floor(<span class="keywordtype">int</span> floor);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keywordtype">void</span> <a class="code" href="queue_8h.html#a1f0baa962061a0a93fce81f89b2bb651">queue_clear_all_requests</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> <a class="code" href="queue_8h.html#ad676a3ba9daab1b1020e97c897c604c6">queue_clear_floor</a>(<span class="keywordtype">int</span> floor);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> queue_push_to_front();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="queue_8h.html#a9faba6205db38bf64acc2149d4ca01e6">queue_read_floor</a>(<span class="keywordtype">int</span> floor, <a class="code" href="queue_8h.html#afd0d402a212257f6f374d196ef9c2101">QueueMovement</a> dir);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">int</span> <a class="code" href="queue_8h.html#afb25a172cd9c080af1fc8c4781fd83f3">queue_read_next</a>();</div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aqueue_8h_html_afb25a172cd9c080af1fc8c4781fd83f3"><div class="ttname"><a href="queue_8h.html#afb25a172cd9c080af1fc8c4781fd83f3">queue_read_next</a></div><div class="ttdeci">int queue_read_next()</div><div class="ttdoc">Simply returns the first floor in the queue; the next target for the elevator.</div><div class="ttdef"><b>Definition:</b> queue.c:100</div></div>
+<div class="ttc" id="aqueue_8h_html_ab0bbe52579893666d4ed71e1e1bd4c48"><div class="ttname"><a href="queue_8h.html#ab0bbe52579893666d4ed71e1e1bd4c48">QueueOrder</a></div><div class="ttdeci">QueueOrder</div><div class="ttdoc">Used for interaction between main and queue regarding request type. Used primarily to set requests.</div><div class="ttdef"><b>Definition:</b> queue.h:22</div></div>
+<div class="ttc" id="aqueue_8h_html_a9faba6205db38bf64acc2149d4ca01e6"><div class="ttname"><a href="queue_8h.html#a9faba6205db38bf64acc2149d4ca01e6">queue_read_floor</a></div><div class="ttdeci">bool queue_read_floor(int floor, QueueMovement dir)</div><div class="ttdoc">Used to look for relevant requests at specific floor. Used to determine if the elevator should stop w...</div><div class="ttdef"><b>Definition:</b> queue.c:78</div></div>
+<div class="ttc" id="aqueue_8h_html_a1f0baa962061a0a93fce81f89b2bb651"><div class="ttname"><a href="queue_8h.html#a1f0baa962061a0a93fce81f89b2bb651">queue_clear_all_requests</a></div><div class="ttdeci">void queue_clear_all_requests()</div><div class="ttdoc">Removes all requests on given floor. Should be used when elevator stops at floor.</div><div class="ttdef"><b>Definition:</b> queue.c:41</div></div>
+<div class="ttc" id="aqueue_8h_html_af756dfd76164ed0d477eba830ca0f01d"><div class="ttname"><a href="queue_8h.html#af756dfd76164ed0d477eba830ca0f01d">queue_set_request</a></div><div class="ttdeci">void queue_set_request(int floor, QueueOrder order_type)</div><div class="ttdoc">Sets a single request to active, should be used directly when an elevator request button is pressed.</div><div class="ttdef"><b>Definition:</b> queue.c:9</div></div>
+<div class="ttc" id="aqueue_8h_html_ad676a3ba9daab1b1020e97c897c604c6"><div class="ttname"><a href="queue_8h.html#ad676a3ba9daab1b1020e97c897c604c6">queue_clear_floor</a></div><div class="ttdeci">void queue_clear_floor(int floor)</div><div class="ttdoc">Adds a floor to the first available spot in the queue, if it is not already there....</div><div class="ttdef"><b>Definition:</b> queue.c:55</div></div>
+<div class="ttc" id="aqueue_8h_html_afd0d402a212257f6f374d196ef9c2101"><div class="ttname"><a href="queue_8h.html#afd0d402a212257f6f374d196ef9c2101">QueueMovement</a></div><div class="ttdeci">QueueMovement</div><div class="ttdoc">Used for interaction between main and queue regarding elevator movement. Used primarily to read reque...</div><div class="ttdef"><b>Definition:</b> queue.h:14</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
