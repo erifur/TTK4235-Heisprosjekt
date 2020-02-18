@@ -33,17 +33,17 @@ typedef enum {
 */
 void queue_set_request(int floor, QueueOrder order_type);
 /**
-* @brief Removes ALL stored requests. Should be used when stop button is pressed.
+* @brief Removes all requests on given floor. Should be used when elevator stops at floor.
+* @param floor Remove requests at this floor.
 */
 static void queue_add_floor(int floor);
 /**
-* @brief Removes all requests on given floor. Should be used when elevator stops at floor.
-* @param floor Remove requests at this floor.
+* @brief Removes ALL stored requests. Should be used when stop button is pressed.
 */
 void queue_clear_all_requests();
 /**
 * @brief Adds a floor to the first available spot in the queue, if it is not already there.
-* @ floor The floor to be added
+* @param floor The floor to be added
 */
 void queue_clear_floor(int floor);
 /**
