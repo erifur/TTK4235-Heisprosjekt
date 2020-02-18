@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['end_5ftimers_0',['end_timers',['../timer_8h.html#a6693bd5aba5b02880379bfb2b30d5c88',1,'timer.c']]]
+  ['free_5ftimer_0',['free_timer',['../timer_8h.html#a5ebcd79eb8839dc40607c9c277532961',1,'timer.c']]]
 ];

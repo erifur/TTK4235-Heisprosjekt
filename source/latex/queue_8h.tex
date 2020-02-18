@@ -32,11 +32,11 @@ enum \mbox{\hyperlink{queue_8h_ab0bbe52579893666d4ed71e1e1bd4c48}{Queue\+Order}}
 \item 
 void \mbox{\hyperlink{queue_8h_af756dfd76164ed0d477eba830ca0f01d}{queue\+\_\+set\+\_\+request}} (int floor, \mbox{\hyperlink{queue_8h_ab0bbe52579893666d4ed71e1e1bd4c48}{Queue\+Order}} order\+\_\+type)
 \begin{DoxyCompactList}\small\item\em Sets a single request to active, should be used directly when an elevator request button is pressed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}\label{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}} 
 void \mbox{\hyperlink{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}{queue\+\_\+clear\+\_\+all\+\_\+requests}} ()
-\begin{DoxyCompactList}\small\item\em Removes all requests on given floor. Should be used when elevator stops at floor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}\label{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}} 
+\begin{DoxyCompactList}\small\item\em Removes A\+LL stored requests. Should be used when stop button is pressed. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}{queue\+\_\+clear\+\_\+floor}} (int floor)
-\begin{DoxyCompactList}\small\item\em Adds a floor to the first available spot in the queue, if it is not already there. @ floor The floor to be added. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Removes all requests on given floor. Should be used when elevator stops at floor. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{queue_8h_a9faba6205db38bf64acc2149d4ca01e6}{queue\+\_\+read\+\_\+floor}} (int floor, \mbox{\hyperlink{queue_8h_afd0d402a212257f6f374d196ef9c2101}{Queue\+Movement}} dir)
 \begin{DoxyCompactList}\small\item\em Used to look for relevant requests at specific floor. Used to determine if the elevator should stop when passing by. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{queue_8h_afb25a172cd9c080af1fc8c4781fd83f3}{queue\+\_\+read\+\_\+next}} ()
@@ -49,11 +49,11 @@ Module for managing elevator requests and order of execution. Should input each 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}\label{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}} 
-\index{queue.h@{queue.h}!queue\_clear\_all\_requests@{queue\_clear\_all\_requests}}
-\index{queue\_clear\_all\_requests@{queue\_clear\_all\_requests}!queue.h@{queue.h}}
-\doxysubsubsection{\texorpdfstring{queue\_clear\_all\_requests()}{queue\_clear\_all\_requests()}}
-{\footnotesize\ttfamily void queue\+\_\+clear\+\_\+all\+\_\+requests (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}\label{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}} 
+\index{queue.h@{queue.h}!queue\_clear\_floor@{queue\_clear\_floor}}
+\index{queue\_clear\_floor@{queue\_clear\_floor}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{queue\_clear\_floor()}{queue\_clear\_floor()}}
+{\footnotesize\ttfamily void queue\+\_\+clear\+\_\+floor (\begin{DoxyParamCaption}\item[{int}]{floor }\end{DoxyParamCaption})}
 
 
 
@@ -78,7 +78,7 @@ Used to look for relevant requests at specific floor. Used to determine if the e
 \begin{DoxyParams}{Parameters}
 {\em floor} & The relevant floor. \\
 \hline
-{\em dir} & Direction of movement, to decide if the elevator should stop at an order. \\
+{\em dir} & Direction of movement \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
