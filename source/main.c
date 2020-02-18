@@ -5,6 +5,7 @@
 
 #include "hardware.h"
 #include "queue.h"
+#include "timer.h"
 
 typedef enum {
     ELEVATOR_IDLE,      // Waiting for orders
@@ -21,6 +22,12 @@ int main(){
     int elevator_floor; // Current (last known) elevator floor
     int next_request;   // The next floor request in the queue
     HardwareMovement elevator_dir;   // Elevator direction of movement
+    
+    time_t * p_start; //pointer for start of timer
+    p_start = (time_t*) malloc(sizeof(time_t));
+
+    time_t * p_now; //pointer for checking for passed time x amount of seconds
+    p_now = (time_t*) malloc(sizeof(time_t));
     
     bool new_elevator_state = true; // Controls state initialization
     // Each state must set and reset this variable upon transition
@@ -121,15 +128,16 @@ int main(){
                 if(new_elevator_state){
                     hardware_command_door_open(1);
                     queue_clear_floor(elevator_floor);
-                    // TIMER START
+                    timer_start(p_start);
                     new_elevator_state = false;
                 }
             // Action:
                 if(hardware_read_obstruction_signal()){
                     // RESET TIMER (remove and start new timer)
+                    timer_start(p_start);
                 }
             // Transition:
-                if( // TIMER ENDED ){
+                if( is_timer_finished(p_start,p_now) ){
                     hardware_command_door_open(0);
                     elevator_state = ELEVATOR_IDLE;
                     new_elevator_state = true;
@@ -160,4 +168,6 @@ int main(){
         
         } // End switch()
     } // End while()
+    free_timer(p_start, p_now);
+    return 0;
 } // End main()
