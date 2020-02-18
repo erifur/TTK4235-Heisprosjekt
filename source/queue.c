@@ -9,6 +9,20 @@ static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {0};
 static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {0};
 static int queue[QUEUE_NUMBER_OF_FLOORS] = {0};
 
+/**
+* @brief Adds a floor to the first available spot in the queue, if it is not already there.
+* @param floor The floor to be added
+*/
+static void queue_add_floor(int floor){
+    for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
+        if (queue[i] == 0){ // Add floor to first free spot, then return
+            queue[i] = floor;
+            return;
+        }
+    }
+    return;
+}
+
 void queue_set_request(int floor, QueueOrder order_type){
     switch(order_type){
         case QUEUE_ORDER_UP :
@@ -29,19 +43,6 @@ void queue_set_request(int floor, QueueOrder order_type){
     }
     queue_add_floor(floor);    // If not, add to queue
 }
-/**
-* @brief Adds a floor to the first available spot in the queue, if it is not already there.
-* @param floor The floor to be added
-*/
-static void queue_add_floor(int floor){
-    for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
-        if (queue[i] == 0){ // Add floor to first free spot, then return
-            queue[i] = floor;
-            return;
-        }
-    }
-    return;
-}
 
 void queue_clear_all_requests(){
     // Reset cab and queue
@@ -57,6 +58,17 @@ void queue_clear_all_requests(){
     return;
 }
 
+/**
+* @brief Ensures that if there are elements in the queue, they will appear first. Should be used immediately after removing an element from the queue.
+*/
+static void queue_push_to_front(){
+    for (int i=0; i<(QUEUE_NUMBER_OF_FLOORS-1); ++i){
+        if (queue[i] == 0){
+            queue[i] = queue[i+1];
+            queue[i+1] = 0;
+        }
+    }
+}
 void queue_clear_floor(int floor){
     // Remove floor from arrays:
     requests_up[floor-1] = false;
@@ -71,17 +83,6 @@ void queue_clear_floor(int floor){
     queue_push_to_front();
 }
 
-/**
- * @brief Ensures that if there are elements in the queue, they will appear first. Should be used immediately after removing an element from the queue.
- */
-static void queue_push_to_front(){
-    for (int i=0; i<(QUEUE_NUMBER_OF_FLOORS-1); ++i){
-        if (queue[i] == 0){
-            queue[i] = queue[i+1];
-            queue[i+1] = 0;
-        }
-    }
-}
 
 bool queue_read_floor(int floor, QueueMovement dir){
     // Cab order to floor, should always stop:
