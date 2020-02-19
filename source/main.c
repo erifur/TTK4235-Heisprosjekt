@@ -135,7 +135,7 @@ int main(){
                     //turns of orderlights at current floor, as all of different
                     //orders will be handled at the same time
 
-                    int current_floor = queue[0];  
+                    int current_floor = queue[0];
                     
                     hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, int 0);
                     hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, int 0);
