@@ -131,10 +131,13 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                    /*
-                    turn of order light at this floor
-                   
-                    */
+                
+                    //turns of orderlights at current floor, as all of different
+                    //orders will be handled at the same time
+                    hardware_command_order_light(f, HARDWARE_ORDER_DOWN, int 0);
+                    hardware_command_order_light(f, HARDWARE_ORDER_UP, int 0);
+                    hardware_command_order_light(f, HARDWARE_ORDER_INSIDE, int 0);
+
                     hardware_command_door_open(1); //turns on door light
 
                     queue_clear_floor(elevator_floor);
