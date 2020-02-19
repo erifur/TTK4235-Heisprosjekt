@@ -67,7 +67,8 @@ int main(){
                     new_elevator_state = true;
                 }
             }
-        }
+        } // end for()
+
         if(!hardware_read_floor_sensor(elevator_floor)){ // left floor
             elevator_at_floor = false;
         }
@@ -131,12 +132,12 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                
+
+                    // at this point, first element in queue should be the floor the elevator is at
+                    int current_floor = queue[0]; 
+                    
                     //turns of orderlights at current floor, as all of different
                     //orders will be handled at the same time
-
-                    int current_floor = queue[0];
-                    
                     hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, int 0);
                     hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, int 0);
                     hardware_command_order_light(current_floor, HARDWARE_ORDER_INSIDE, int 0);
