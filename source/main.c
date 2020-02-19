@@ -62,6 +62,7 @@ int main(){
                 hardware_command_floor_indicator_on(f);
                 elevator_floor = f;
                 elevator_at_floor = true;
+				// CHECK OBSTRUCTION SPECIFICATION; IS THIS CORRECT?:
                 if(hardware_read_obstruction_signal()){
                     elevator_state = ELEVATOR_DOOR_OPEN;
                     new_elevator_state = true;
@@ -69,8 +70,8 @@ int main(){
             }
         } // end for()
 
-        if(!hardware_read_floor_sensor(elevator_floor)){ // left floor
-            elevator_at_floor = false;
+        if(!hardware_read_floor_sensor(elevator_floor)){
+            elevator_at_floor = false; // no longer at floor
         }
         
         // CONTROLLING HARDWARE (FSM):
@@ -84,44 +85,67 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     new_elevator_state = false;
+					printf("Elevator Idle");
                 }
             // Transition:
-                if(next_request != 0){ // There is a request
+                if(next_request != -1){ // There is a request
+					if(next_request != elevator_floor){ // request elsewhere
+						elevator_state = ELEVATOR_MOVING;
+						new_elevator_state = true;
+					}
                     if(next_request == elevator_floor){ // request at floor
-                        elevator_state = ELEVATOR_DOOR_OPEN;
+                        if(elevator_at_floor){ // exactly at floor, just open door
+							elevator_state = ELEVATOR_DOOR_OPEN;
+							new_elevator_state = true;
+						}
+						if(!elevator_at_floor){ // between floors
+							// if went up last, go back down:
+							if(elevator_dir == HARDWARE_MOVEMENT_UP){
+								hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+							}
+							// if went down last, go back up:
+							if(elevator_dir == HARDWARE_MOVEMENT_DOWN){
+								hardware_command_movement(HARDWARE_MOVEMENT_UP);
+							}
+							elevator_state = ELEVATOR_MOVING;
+							new_elevator_state = false;
+							// false, because motor is already started
+							
+							// Note: don't change elevator_dir, in case stop
+							// button is pressed again before floor reached.
+						}
                     }
-                    else if(next_request != elevator_floor){ // request elsewhere
-                        elevator_state = ELEVATOR_MOVING;
-                    }
-                    new_elevator_state = true;
                 }
                 
             case ELEVATOR_MOVING : // moving to floor
             // Init:
                 if(new_elevator_state){
+					printf("Elevator Moving");
                     if(next_request > elevator_floor){ // request above
                         elevator_dir = HARDWARE_MOVEMENT_UP;
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
+						printf("Going up");
                     }
-                    else if(next_request < elevator_floor){ // request below
+                    if(next_request < elevator_floor){ // request below
                         elevator_dir = HARDWARE_MOVEMENT_DOWN;
                         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+						printf("Going down");
                     }
                     new_elevator_state = false;
                 }
             // Transition:
-                if(elevator_at_floor){ // Elevator at floor
+                if(elevator_at_floor){ // Elevator reached a floor
                     if(elevator_dir == HARDWARE_MOVEMENT_UP){ // going up
                         if(queue_read_floor(elevator_floor, QUEUE_MOVEMENT_UP)){
-                            elevator_dir = HARDWARE_MOVEMENT_STOP;
+                            elevator_dir = HARDWARE_MOVEMENT_STOP; // signal stop
                         }
                     }
                     if(elevator_dir == HARDWARE_MOVEMENT_DOWN){ // going down
                         if(queue_read_floor(elevator_floor, QUEUE_MOVEMENT_DOWN)){
-                            elevator_dir = HARDWARE_MOVEMENT_STOP;
+                            elevator_dir = HARDWARE_MOVEMENT_STOP; // signal stop
                         }
                     }
-                    if(elevator_dir == HARDWARE_MOVEMENT_STOP){
+                    if(elevator_dir == HARDWARE_MOVEMENT_STOP){ // receive stop
                         hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                         elevator_state = ELEVATOR_DOOR_OPEN;
                         new_elevator_state = true;
@@ -131,18 +155,14 @@ int main(){
             case ELEVATOR_DOOR_OPEN : // manages the door
             // Init:
                 if(new_elevator_state){
-                    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+					hardware_command_door_open(1); // open door
 
-                    // at this point, first element in queue should be the floor the elevator is at
-                    int current_floor = queue[0]; 
-                    
-                    //turns of orderlights at current floor, as all of different
-                    //orders will be handled at the same time
-                    hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, int 0);
-                    hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, int 0);
-                    hardware_command_order_light(current_floor, HARDWARE_ORDER_INSIDE, int 0);
+					printf("Elevator Door Open");
 
-                    hardware_command_door_open(1); //turns on door light
+                    // turn off all request lights:
+					hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, 0);
+					hardware_command_order_light(current_floor, HARDWARE_ORDER_INSIDE, 0);
+                    hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, 0);
 
                     queue_clear_floor(elevator_floor);
                     timer_start(p_start); // Start timer
@@ -150,7 +170,8 @@ int main(){
                 }
             // Action:
                 if(hardware_read_obstruction_signal()){
-                    timer_start(p_start); // sets new start value as long as obstruction is active
+                    timer_start(p_start);
+					// restart timer while obstruction active
                 }
             // Transition:
                 if(is_timer_finished(p_start,p_now)){
@@ -162,29 +183,27 @@ int main(){
             case ELEVATOR_STOPPED : // active while stop button is pressed
             // Init:
                 if(new_elevator_state){
+					printf("Elevator Stopped");
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                    
                     hardware_command_stop_light(1); //turns on stoplight
-
-                    queue_clear_all_requests();
+                    queue_clear_all_requests();	// part of specs.
+					
                     if(elevator_at_floor){
                         hardware_command_door_open(1);
                     }
                     new_elevator_state = false;
                 }
             // Transition:
-                if(!hardware_read_stop_signal()){ // No longer active
-                    
+                if(!hardware_read_stop_signal()){ // Button no longer active
                     hardware_command_stop_light(0); //turns off stoplight
 
-                    if(elevator_at_floor){
+                    if(elevator_at_floor){ // state will manage door
                         elevator_state = ELEVATOR_DOOR_OPEN;
-                        new_elevator_state = true;
                     }
-                    if(!elevator_at_floor){
+                    if(!elevator_at_floor){ // just goto idle.
                         elevator_state = ELEVATOR_IDLE;
-                        new_elevator_state = true;
                     }
+					new_elevator_state = true;
                 }
         
         
