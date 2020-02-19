@@ -134,9 +134,12 @@ int main(){
                 
                     //turns of orderlights at current floor, as all of different
                     //orders will be handled at the same time
-                    hardware_command_order_light(f, HARDWARE_ORDER_DOWN, int 0);
-                    hardware_command_order_light(f, HARDWARE_ORDER_UP, int 0);
-                    hardware_command_order_light(f, HARDWARE_ORDER_INSIDE, int 0);
+
+                    int current_floor = queue[0];  
+                    
+                    hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, int 0);
+                    hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, int 0);
+                    hardware_command_order_light(current_floor, HARDWARE_ORDER_INSIDE, int 0);
 
                     hardware_command_door_open(1); //turns on door light
 
