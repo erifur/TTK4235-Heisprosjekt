@@ -4,10 +4,10 @@
 */
 #include "queue.h"
 
-static bool requests_cab[QUEUE_NUMBER_OF_FLOORS] = {0};
-static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {0};
-static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {0};
-static int queue[QUEUE_NUMBER_OF_FLOORS] = {0};
+static bool requests_cab[QUEUE_NUMBER_OF_FLOORS] = {false};
+static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {false};
+static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {false};
+static int queue[QUEUE_NUMBER_OF_FLOORS] = {-1};
 
 /**
 * @brief Adds a floor to the first available spot in the queue, if it is not already there.
@@ -15,7 +15,7 @@ static int queue[QUEUE_NUMBER_OF_FLOORS] = {0};
 */
 static void queue_add_floor(int floor){
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
-        if (queue[i] == 0){ // Add floor to first free spot, then return
+        if (queue[i] == -1){ // Add floor to first free spot, then return
             queue[i] = floor;
             return;
         }
@@ -47,7 +47,7 @@ void queue_set_request(int floor, QueueOrder order_type){
 void queue_clear_all_requests(){
     // Reset cab and queue
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
-        queue[i] = 0;
+        queue[i] = -1;
         requests_cab[i] = false;
     }
     // Reset hall orders, seperate because shorter arrays
@@ -63,9 +63,9 @@ void queue_clear_all_requests(){
 */
 static void queue_push_to_front(){
     for (int i=0; i<(QUEUE_NUMBER_OF_FLOORS-1); ++i){
-        if (queue[i] == 0){
+        if (queue[i] == -1){
             queue[i] = queue[i+1];
-            queue[i+1] = 0;
+            queue[i+1] = -1;
         }
     }
 }
@@ -76,7 +76,7 @@ void queue_clear_floor(int floor){
     requests_down[floor-2] = false;
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == floor){
-            queue[i] = 0;
+            queue[i] = -1;
         }
     }
     // Rearrange queue:
