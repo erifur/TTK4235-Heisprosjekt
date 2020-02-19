@@ -131,18 +131,23 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                    hardware_command_door_open(1);
+                    /*
+                    turn of order light at this floor
+                   
+                    */
+                    hardware_command_door_open(1); //turns on door light
+
                     queue_clear_floor(elevator_floor);
                     timer_start(p_start); // Start timer
                     new_elevator_state = false;
                 }
             // Action:
                 if(hardware_read_obstruction_signal()){
-                    timer_start(p_start); // Restart timer
+                    timer_start(p_start); // sets new start value as long as obstruction is active
                 }
             // Transition:
                 if(is_timer_finished(p_start,p_now)){
-                    hardware_command_door_open(0);
+                    hardware_command_door_open(0); //turns off door light
                     elevator_state = ELEVATOR_IDLE;
                     new_elevator_state = true;
                 }
@@ -151,6 +156,9 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                    
+                    hardware_command_stop_light(1); //turns on stoplight
+
                     queue_clear_all_requests();
                     if(elevator_at_floor){
                         hardware_command_door_open(1);
@@ -159,6 +167,9 @@ int main(){
                 }
             // Transition:
                 if(!hardware_read_stop_signal()){ // No longer active
+                    
+                    hardware_command_stop_light(0); //turns off stoplight
+
                     if(elevator_at_floor){
                         elevator_state = ELEVATOR_DOOR_OPEN;
                         new_elevator_state = true;
