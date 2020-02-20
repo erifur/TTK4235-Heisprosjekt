@@ -37,12 +37,13 @@ int main(){
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
     elevator_at_floor = false; // Assuming unknown floor
+    elevator_dir = HARDWARE_MOVEMENT_STOP
     while(!elevator_at_floor){
         for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
             if(hardware_read_floor_sensor(f)){
                 elevator_at_floor = true;
                 hardware_command_movement(HARDWARE_MOVEMENT_STOP);
-                elevator_dir = HARDWARE_MOVEMENT_STOP
+                elevator_dir = HARDWARE_MOVEMENT_STOP;
             }
         }
         if((!elevator_at_floor) && (elevator_dir == HARDWARE_MOVEMENT_STOP)){
@@ -107,16 +108,26 @@ int main(){
                 }
             // Transition:
                 if(next_request != -1){ // There is a request
-					if(next_request != elevator_floor){ // request elsewhere
+                    
+                    // Request at different floor
+					if(next_request != elevator_floor){
 						elevator_state = ELEVATOR_MOVING;
 						new_elevator_state = true;
 					}
-                    if(next_request == elevator_floor){ // request at floor
-                        if(elevator_at_floor){ // exactly at floor, just open door
+                    // Request at current floor
+                    if(next_request == elevator_floor){
+                        
+                        // Elevator still at floor, just open door
+                        if(elevator_at_floor){
 							elevator_state = ELEVATOR_DOOR_OPEN;
 							new_elevator_state = true;
 						}
-						if(!elevator_at_floor){ // between floors
+                        
+						if(!elevator_at_floor){
+                            // Special case; if elevator stopped between
+                            // floors and then recalled to last floor.
+                            // Uses memory of last elevator_dir to return.
+                            
 							// if went up last, go back down:
 							if(elevator_dir == HARDWARE_MOVEMENT_UP){
 								hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
@@ -128,9 +139,6 @@ int main(){
 							elevator_state = ELEVATOR_MOVING;
 							new_elevator_state = false;
 							// false, because motor is already started
-							
-							// Note: don't change elevator_dir, in case stop
-							// button is pressed again before floor reached.
 						}
                     }
                 }
@@ -140,7 +148,7 @@ int main(){
             // Init:
                 if(new_elevator_state){
 					printf("Elevator Moving \n");
-                    printf("Serving Request: %i \n", next_request);
+                    printf("Serving request at floor %i \n", next_request);
                     if(next_request > elevator_floor){ // request above
                         elevator_dir = HARDWARE_MOVEMENT_UP;
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
