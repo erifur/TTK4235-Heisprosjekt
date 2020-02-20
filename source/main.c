@@ -39,6 +39,8 @@ int main(){
     
     while(1){
 
+        //finished?
+
         // READING FROM HARDWARE:
         for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
             if(hardware_read_stop_signal()){ // Take no requests
