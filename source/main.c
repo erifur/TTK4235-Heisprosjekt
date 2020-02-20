@@ -85,7 +85,7 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     new_elevator_state = false;
-					printf("Elevator Idle");
+					printf("Elevator Idle \n");
                 }
             // Transition:
                 if(next_request != -1){ // There is a request
@@ -120,16 +120,16 @@ int main(){
             case ELEVATOR_MOVING : // moving to floor
             // Init:
                 if(new_elevator_state){
-					printf("Elevator Moving");
+					printf("Elevator Moving \n");
                     if(next_request > elevator_floor){ // request above
                         elevator_dir = HARDWARE_MOVEMENT_UP;
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
-						printf("Going up");
+						printf("Going up \n");
                     }
                     if(next_request < elevator_floor){ // request below
                         elevator_dir = HARDWARE_MOVEMENT_DOWN;
                         hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
-						printf("Going down");
+						printf("Going down \n");
                     }
                     new_elevator_state = false;
                 }
@@ -157,7 +157,7 @@ int main(){
                 if(new_elevator_state){
 					hardware_command_door_open(1); // open door
 
-					printf("Elevator Door Open");
+					printf("Elevator Door Open \n");
 
                     // turn off all request lights:
 					hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, 0);
@@ -183,7 +183,7 @@ int main(){
             case ELEVATOR_STOPPED : // active while stop button is pressed
             // Init:
                 if(new_elevator_state){
-					printf("Elevator Stopped");
+					printf("Elevator Stopped \n");
                     hardware_command_movement(HARDWARE_MOVEMENT_STOP);
                     hardware_command_stop_light(1); //turns on stoplight
                     queue_clear_all_requests();	// part of specs.
@@ -195,7 +195,8 @@ int main(){
                 }
             // Transition:
                 if(!hardware_read_stop_signal()){ // Button no longer active
-                    hardware_command_stop_light(0); //turns off stoplight
+                    hardware_command_stop_light(0); //turns off 
+                    printf("turn of stop light \n");
 
                     if(elevator_at_floor){ // state will manage door
                         elevator_state = ELEVATOR_DOOR_OPEN;
