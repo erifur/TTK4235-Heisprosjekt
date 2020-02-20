@@ -160,9 +160,9 @@ int main(){
 					printf("Elevator Door Open \n");
 
                     // turn off all request lights:
-					hardware_command_order_light(current_floor, HARDWARE_ORDER_UP, 0);
-					hardware_command_order_light(current_floor, HARDWARE_ORDER_INSIDE, 0);
-                    hardware_command_order_light(current_floor, HARDWARE_ORDER_DOWN, 0);
+					hardware_command_order_light(elevator_floor, HARDWARE_ORDER_UP, 0);
+					hardware_command_order_light(elevator_floor, HARDWARE_ORDER_INSIDE, 0);
+                    hardware_command_order_light(elevator_floor, HARDWARE_ORDER_DOWN, 0);
 
                     queue_clear_floor(elevator_floor);
                     timer_start(p_start); // Start timer
@@ -195,7 +195,7 @@ int main(){
                 }
             // Transition:
                 if(!hardware_read_stop_signal()){ // Button no longer active
-                    hardware_command_stop_light(0); //turns off 
+                    hardware_command_stop_light(0); //turns off
                     printf("turn of stop light \n");
 
                     if(elevator_at_floor){ // state will manage door
