@@ -7,6 +7,7 @@
 #include "queue.h"
 #include "timer.h"
 
+// The four elevator states resprecented as constants:
 typedef enum {
     ELEVATOR_IDLE,      // Waiting for orders
     ELEVATOR_DOOR_OPEN, // Door open at floor
@@ -17,33 +18,47 @@ typedef enum {
 
 
 int main(){
-
-    hardware_command_movement(HARDWARE_MOVEMENT_STOP);
     
+    // Flags and control variables used in the FSM:
     bool elevator_at_floor; // Is the elevator at a floor
     int elevator_floor; // Current (last known) elevator floor
-    int next_request;   // The next floor request in the queue
-    HardwareMovement elevator_dir;   // Elevator direction of movement
-    ElevatorState elevator_state = ELEVATOR_IDLE; // No request
-
-    time_t * p_start; //pointer for start of timer
-    p_start = (time_t*) malloc(sizeof(time_t));
-
-    time_t * p_now; //pointer for checking for passed time x amount of seconds
-    p_now = (time_t*) malloc(sizeof(time_t));
-    
+    int next_request; // The next floor request in the queue
+    HardwareMovement elevator_dir; // Elevator direction of movement
+    ElevatorState elevator_state = ELEVATOR_IDLE; // Current state
     bool new_elevator_state = true; // Controls state initialization
     // Each state must set and reset this variable upon transition
     
-    hardware_init();
+    // Timer pointers used to control the door:
+    time_t * p_start; // Start of timer
+    time_t * p_now; // Check passed time
+    p_start = (time_t*) malloc(sizeof(time_t));
+    p_now = (time_t*) malloc(sizeof(time_t));
     
-    while(1){
-
-        //finished?
+    // Initialization process, gets elevator to a defined state (a floor):
+    hardware_init();
+    elevator_at_floor = false; // Assuming unknown floor
+    while(!elevator_at_floor){
+        for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
+            if(hardware_read_floor_sensor(f)){
+                elevator_at_floor = true;
+                hardware_command_movement(HARDWARE_MOVEMENT_STOP);
+                elevator_dir = HARDWARE_MOVEMENT_STOP
+            }
+        }
+        if((!elevator_at_floor) && (elevator_dir == HARDWARE_MOVEMENT_STOP)){
+            hardware_command_movement(HARDWARE_MOVEMENT_DOWN);
+            elevator_dir = HARDWARE_MOVEMENT_DOWN;
+        }
+    }
+    
+    
+    while(1){ // ELEVATOR PROGRAM START
 
         // READING FROM HARDWARE:
         for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
-            if(hardware_read_stop_signal()){ // Take no requests
+            
+            // Check stop button
+            if(hardware_read_stop_signal()){
                 if(elevator_state != ELEVATOR_STOPPED){
                     new_elevator_state = true;
                     elevator_state = ELEVATOR_STOPPED;
@@ -71,15 +86,15 @@ int main(){
                 elevator_floor = f;
                 elevator_at_floor = true;
             }
-        } // end for()
-
+        } // End read loop
+        
         if(!hardware_read_floor_sensor(elevator_floor)){
             elevator_at_floor = false; // no longer at floor
         }
         
         // CONTROLLING HARDWARE (FSM):
-        // Idea: Actions are continuous in a state, transitions are
-        // event-based, move between states, and happen only IF(...)
+        
+        // Each state has an initialization, a transition, and sometimes an action.
         
         next_request = queue_read_next();
         
