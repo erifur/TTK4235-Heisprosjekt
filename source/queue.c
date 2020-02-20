@@ -26,14 +26,14 @@ static void queue_add_floor(int floor){
 void queue_set_request(int floor, QueueOrder order_type){
     switch(order_type){
         case QUEUE_ORDER_UP :
-            requests_up[floor - 1] = true;
+            requests_up[floor] = true;
             // index=floor-1 because index 0 = floor 1
             break;
         case QUEUE_ORDER_INSIDE :
-            requests_cab[floor - 1] = true;
+            requests_cab[floor] = true;
             break;
         case QUEUE_ORDER_DOWN :
-            requests_down[floor - 2] = true;
+            requests_down[floor - 1] = true;
             //index=floor-2 because starts at floor 2
             break;
     }
@@ -71,9 +71,9 @@ static void queue_push_to_front(){
 }
 void queue_clear_floor(int floor){
     // Remove floor from arrays:
-    requests_up[floor-1] = false;
-    requests_cab[floor-1] = false;
-    requests_down[floor-2] = false;
+    requests_up[floor] = false;
+    requests_cab[floor] = false;
+    requests_down[floor-1] = false;
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == floor){
             queue[i] = -1;
@@ -87,19 +87,19 @@ void queue_clear_floor(int floor){
 bool queue_read_floor(int floor, QueueMovement dir){
     // Cab order to floor, should always stop:
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
-        if (requests_cab[floor-1] == true){
+        if (requests_cab[floor] == true){
             return true;
         }
     }
     // If moving up, take requests going up
     if (dir == QUEUE_MOVEMENT_UP){
-        if (requests_up[floor-1] == true){
+        if (requests_up[floor] == true){
             return true;
         }
     }
     // If moving down, take requests going down
     if (dir == QUEUE_MOVEMENT_DOWN){
-        if (requests_down[floor-2] == true){
+        if (requests_down[floor-1] == true){
             return true;
         }
     }
