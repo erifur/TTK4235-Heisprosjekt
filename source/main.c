@@ -37,7 +37,7 @@ int main(){
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
     elevator_at_floor = false; // Assuming unknown floor
-    elevator_dir = HARDWARE_MOVEMENT_STOP
+    elevator_dir = HARDWARE_MOVEMENT_STOP;
     while(!elevator_at_floor){
         for(int f = 0; f < HARDWARE_NUMBER_OF_FLOORS; f++){
             if(hardware_read_floor_sensor(f)){
@@ -96,6 +96,9 @@ int main(){
         // CONTROLLING HARDWARE (FSM):
         
         // Each state has an initialization, a transition, and sometimes an action.
+        // Initialization is run once upon entry into state.
+        // Action is run continuously when in state.
+        // Transition is used for exit 
         
         next_request = queue_read_next();
         
