@@ -23,7 +23,7 @@ int main(){
     bool elevator_at_floor; // Is the elevator at a floor
     int elevator_floor; // Current (last known) elevator floor
     int next_request; // The next floor request in the queue
-    HardwareMovement elevator_dir; // Elevator direction of movement
+    HardwareMovement elevator_dir; // Elevator direction of movement, used as memory for stop-signal
     ElevatorState elevator_state = ELEVATOR_IDLE; // Current state
     bool new_elevator_state = true; // Controls state initialization
     // Each state must set and reset this variable upon transition
@@ -151,7 +151,7 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     if(next_request > elevator_floor){ // Request above
-                        elevator_dir = HARDWARE_MOVEMENT_UP;
+                        elevator_dir = HARDWARE_MOVEMENT_UP; 
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
                     }
                     if(next_request < elevator_floor){ // Request below
