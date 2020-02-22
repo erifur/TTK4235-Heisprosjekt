@@ -19,20 +19,18 @@ typedef enum {
 
 int main(){
     
-    // Flags and control variables used in the FSM:
+    // Flags and control variables used in the FSM
     bool elevator_at_floor; // Is the elevator at a floor
     int elevator_floor; // Current (last known) elevator floor
     int next_request; // The next floor request in the queue
-    HardwareMovement elevator_dir; // Elevator direction of movement, used as memory for stop-signal
+    HardwareMovement elevator_dir; // Used to check current/last direction
     ElevatorState elevator_state = ELEVATOR_IDLE; // Current state
     bool new_elevator_state = true; // Controls state initialization
     // Each state must set and reset this variable upon transition
     
-    // Timer pointers used to control the door:
-    time_t * p_start; // Start of timer
-    time_t * p_now; // Check passed time
-    p_start = (time_t*) malloc(sizeof(time_t));
-    p_now = (time_t*) malloc(sizeof(time_t));
+    // Pointers to time variables used to control the door
+    time_t * p_start = (time_t*) malloc(sizeof(time_t));; // Start of timer
+    time_t * p_now = (time_t*) malloc(sizeof(time_t));; // Check passed time
     
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
@@ -107,7 +105,6 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     new_elevator_state = false;
-					printf("Elevator Idle \n");
                 }
             // Transition:
                 if(next_request != -1){ // There is a request
@@ -151,7 +148,7 @@ int main(){
             // Init:
                 if(new_elevator_state){
                     if(next_request > elevator_floor){ // Request above
-                        elevator_dir = HARDWARE_MOVEMENT_UP; 
+                        elevator_dir = HARDWARE_MOVEMENT_UP;
                         hardware_command_movement(HARDWARE_MOVEMENT_UP);
                     }
                     if(next_request < elevator_floor){ // Request below
