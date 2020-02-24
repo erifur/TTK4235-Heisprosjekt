@@ -34,6 +34,7 @@ int main(){
 
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
+    queue_clear_all_requests();
     elevator_at_floor = false; // Assuming unknown floor
     elevator_dir = HARDWARE_MOVEMENT_STOP;
     while(!elevator_at_floor){

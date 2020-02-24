@@ -4,10 +4,10 @@
 */
 #include "queue.h"
 
-static bool requests_cab[QUEUE_NUMBER_OF_FLOORS] = {false};
-static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1] = {false};
-static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1] = {false};
-static int queue[QUEUE_NUMBER_OF_FLOORS] = {-1};
+static bool requests_cab[QUEUE_NUMBER_OF_FLOORS];
+static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1];
+static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1];
+static int queue[QUEUE_NUMBER_OF_FLOORS];
 
 /**
 * @brief Adds a floor to the first available spot in the queue, if it is not already there.
@@ -16,6 +16,7 @@ static int queue[QUEUE_NUMBER_OF_FLOORS] = {-1};
 static void queue_add_floor(int floor){
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == -1){ // Add floor to first free spot, then return
+            printf("Added to queue: %i\n", floor);
             queue[i] = floor;
             return;
         }
