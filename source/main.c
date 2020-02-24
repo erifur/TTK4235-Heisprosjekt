@@ -30,7 +30,7 @@ int main(){
     
     // Pointers to time variables used to control the door
     time_t * p_start = (time_t*) malloc(sizeof(time_t));; // Start of timer
-    time_t * p_now = (time_t*) malloc(sizeof(time_t));; // Check passed time
+    time_t * p_now = (time_t*) malloc(sizeof(time_t));; // Checks passed time
     
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
