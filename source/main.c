@@ -28,13 +28,10 @@ int main(){
     bool new_elevator_state = true; // Controls state initialization
     // Each state must set and reset this variable upon transition
 
-    // Pointers to time variables used to control the door
-    time_t * p_start = (time_t*) malloc(sizeof(time_t));; // Start of timer
-    time_t * p_now = (time_t*) malloc(sizeof(time_t));; // Checks passed time
 
     // Initialization process, gets elevator to a defined state (a floor):
     hardware_init();
-    queue_clear_all_requests();
+    queue_clear_all_requests(); 
     elevator_at_floor = false; // Assuming unknown floor
     elevator_dir = HARDWARE_MOVEMENT_STOP;
     while(!elevator_at_floor){
@@ -189,17 +186,17 @@ int main(){
             // Init:
                 if(new_elevator_state){
 					hardware_command_door_open(1);
-                    timer_start(p_start); // Start door timer
+                    timer_start(); // Start door timer
                     new_elevator_state = false;
                     printf("Door Open\n");
                 }
             // Action:
                 if(hardware_read_obstruction_signal()){
-                    timer_start(p_start);
+                    timer_start();
 					// Reset door timer while obstruction switch is active
                 }
             // Transition:
-                if(is_timer_finished(p_start,p_now)){
+                if(is_timer_finished()){
 
                     // Remove requests and turn off request lights
 					hardware_command_order_light(elevator_floor, HARDWARE_ORDER_UP, 0);
@@ -246,6 +243,5 @@ int main(){
                 break;
         } // End switch()
     } // End while()
-    free_timer(p_start, p_now);
     return 0;
 } // End main()
