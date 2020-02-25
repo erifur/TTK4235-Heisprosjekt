@@ -2,6 +2,7 @@
 
 static time_t p_start;
 static time_t p_now;
+double timer_length = 3;
 
 void timer_start(){
 
@@ -10,8 +11,6 @@ void timer_start(){
  }
  
  bool is_timer_finished(){
-
-    double timer_length = 3;
     time(&p_now);
 
     if(difftime(p_now,p_start)<timer_length)
