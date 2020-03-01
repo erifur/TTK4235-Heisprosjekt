@@ -3,7 +3,8 @@ var indexSectionsWithContent =
   0: "hiqt",
   1: "hqt",
   2: "hiqt",
-  3: "hq"
+  3: "hq",
+  4: "h"
 };
 
 var indexSectionNames =
@@ -11,7 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "files",
   2: "functions",
-  3: "enums"
+  3: "enums",
+  4: "pages"
 };
 
 var indexSectionLabels =
@@ -19,6 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Files",
   2: "Functions",
-  3: "Enumerations"
+  3: "Enumerations",
+  4: "Pages"
 };
 

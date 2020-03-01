@@ -2,7 +2,7 @@
 \label{queue_8h}\index{source/queue.\+h@{source/queue.\+h}}
 
 
-Module for managing elevator requests and order of execution. The module stores all requests locally, and provides methods for updating and reading these.  
+Module for managing elevator requests and order of execution.  
 
 
 {\ttfamily \#include $<$stdbool.\+h$>$}\newline
@@ -34,7 +34,7 @@ void \hyperlink{queue_8h_af756dfd76164ed0d477eba830ca0f01d}{queue\+\_\+set\+\_\+
 \begin{DoxyCompactList}\small\item\em Sets a single request to active, should be used directly when an elevator request button is pressed. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}\label{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}} 
 void \hyperlink{queue_8h_a1f0baa962061a0a93fce81f89b2bb651}{queue\+\_\+clear\+\_\+all\+\_\+requests} ()
-\begin{DoxyCompactList}\small\item\em Removes A\+LL stored requests and empties. Should be used when stop button is pressed. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Removes A\+LL stored requests and empties queue. Should be used when stop button is pressed. \end{DoxyCompactList}\item 
 void \hyperlink{queue_8h_ad676a3ba9daab1b1020e97c897c604c6}{queue\+\_\+clear\+\_\+floor} (int floor)
 \begin{DoxyCompactList}\small\item\em Removes all requests concerning a given floor. Should be used when elevator stops at floor. \end{DoxyCompactList}\item 
 bool \hyperlink{queue_8h_a9faba6205db38bf64acc2149d4ca01e6}{queue\+\_\+read\+\_\+floor} (int floor, \hyperlink{queue_8h_afd0d402a212257f6f374d196ef9c2101}{Queue\+Movement} dir)
@@ -44,7 +44,7 @@ int \hyperlink{queue_8h_afb25a172cd9c080af1fc8c4781fd83f3}{queue\+\_\+read\+\_\+
 
 
 \subsection{Detailed Description}
-Module for managing elevator requests and order of execution. The module stores all requests locally, and provides methods for updating and reading these. 
+Module for managing elevator requests and order of execution. 
 
 
 

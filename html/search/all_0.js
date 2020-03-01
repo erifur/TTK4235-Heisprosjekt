@@ -12,5 +12,6 @@ var searchData=
   ['hardware_5fread_5forder',['hardware_read_order',['../hardware_8h.html#a87917f3aa093fb46ca821a400d011ee8',1,'hardware.h']]],
   ['hardware_5fread_5fstop_5fsignal',['hardware_read_stop_signal',['../hardware_8h.html#a4a77b27c86675c00b513db3445966804',1,'hardware.h']]],
   ['hardwaremovement',['HardwareMovement',['../hardware_8h.html#a2167c399a24df296afc432bcb88228af',1,'hardware.h']]],
-  ['hardwareorder',['HardwareOrder',['../hardware_8h.html#a796a8de8ce0ae769d7dbd3327a7bdbe7',1,'hardware.h']]]
+  ['hardwareorder',['HardwareOrder',['../hardware_8h.html#a796a8de8ce0ae769d7dbd3327a7bdbe7',1,'hardware.h']]],
+  ['heisprosjekt_20_2d_20ttk4235_2c_20gruppe_2042_2c_20våren_202020',['Heisprosjekt - TTK4235, gruppe 42, våren 2020',['../index.html',1,'']]]
 ];
