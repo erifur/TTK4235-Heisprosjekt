@@ -1,8 +1,6 @@
 /**
 *@file
 *@brief  Declaration of the timer module for the elevator
-*@param time_start The time at when the timer was started
-*@param time_now The time right now
 */
 
 #include <time.h>
@@ -11,14 +9,15 @@
 
 
 /**
-*@brief Sets the current \p time_start to the time right now, 
+*@brief Sets the current time to a static variable in the timer module, 
 *which is used as reference to calculate time passed.
 */
 void timer_start();
 
 /**
-*@brief Calculates the difference in seconds between  \p time_start and \p time_now
-*@return If the difference between \p time_now and \p time_start is less than \p timer_length it will return 0,
-*and update time_now to the current time. If the timer is finished, which will be the opposite case, it will return 1.
+*@brief Calculates the difference in seconds between the time when the timer was started and the time now. 
+*The time now is stored in a static variable in the timer module.
+*@return If the difference in time is less than the set timer length it will return 0.
+*If the timer is finished, which will be the opposite case, it will return 1.
 */
  bool is_timer_finished();

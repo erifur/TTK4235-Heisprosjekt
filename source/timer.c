@@ -3,7 +3,7 @@
 
 static time_t time_start;
 static time_t time_now;
-double timer_length = 3.00;
+static double timer_length = 3.00;
 
 void timer_start(){
 
