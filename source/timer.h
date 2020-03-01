@@ -19,6 +19,6 @@ void timer_start();
 /**
 *@brief Calculates the difference in seconds between  \p time_start and \p time_now
 *@return If the difference between \p time_now and \p time_start is less than \p timer_length it will return 0,
-*and update p_now to the current time, else it will return 1
+*and update time_now to the current time. If the timer is finished, which will be the opposite case, it will return 1.
 */
  bool is_timer_finished();
