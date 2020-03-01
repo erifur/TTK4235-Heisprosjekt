@@ -7,16 +7,16 @@ double timer_length = 3.00;
 
 void timer_start(){
 
-    time(&start);   
+    time(&time_start);   
 
  }
  
  bool is_timer_finished(){
-    time(&now);
+    time(&time_now);
 
     if(difftime(time_now,time_start)<timer_length)
     {
-        time(&now);
+        time(&time_now);
         return 0;
     }
     else
