@@ -1,5 +1,5 @@
-#include "timer.h"
 #include <stdio.h>
+#include "timer.h"
 
 static time_t time_start;
 static time_t time_now;
@@ -7,7 +7,7 @@ static double timer_length = 3.00;
 
 void timer_start(){
 
-    time(&time_start);   
+    time(&time_start);
 
  }
  
@@ -20,9 +20,7 @@ void timer_start(){
         return 0;
     }
     else
-    {        
-        return 1;   
+    {
+        return 1;
     }
  }
-
-

@@ -1,7 +1,3 @@
-/**
-* @file
-* @brief Implementation of queue module
-*/
 #include "queue.h"
 
 static bool requests_cab[QUEUE_NUMBER_OF_FLOORS];
@@ -9,14 +5,10 @@ static bool requests_up[QUEUE_NUMBER_OF_FLOORS-1];
 static bool requests_down[QUEUE_NUMBER_OF_FLOORS-1];
 static int queue[QUEUE_NUMBER_OF_FLOORS];
 
-/**
-* @brief Adds a floor to the first available spot in the queue, if it is not already there.
-* @param floor The floor to be added
-*/
+// Adds floor to the first available spot in the queue
 static void queue_add_floor(int floor){
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
         if (queue[i] == -1){ // Add floor to first free spot, then return
-            printf("Added to queue: %i\n", floor);
             queue[i] = floor;
             return;
         }
@@ -28,21 +20,21 @@ void queue_set_request(int floor, QueueOrder order_type){
     switch(order_type){
         case QUEUE_ORDER_UP :
             requests_up[floor] = true;
-            // index=floor-1 because index 0 = floor 1
             break;
         case QUEUE_ORDER_INSIDE :
             requests_cab[floor] = true;
             break;
         case QUEUE_ORDER_DOWN :
             requests_down[floor - 1] = true;
-            //index=floor-2 because starts at floor 2
+            // Index = floor-1 because starts at floor 2
             break;
     }
-    // Check if floor already in queue:
+    // Check if floor already in queue
     for (int i = 0; i<QUEUE_NUMBER_OF_FLOORS; ++i){
-        if (queue[i] == floor){ return; }   // Return if floor in queue
+        if (queue[i] == floor){ return; }
     }
-    queue_add_floor(floor);    // If not, add to queue
+    // If not, add to queue
+    queue_add_floor(floor);
 }
 
 void queue_clear_all_requests(){
@@ -59,9 +51,8 @@ void queue_clear_all_requests(){
     return;
 }
 
-/**
-* @brief Ensures that if there are elements in the queue, they will appear first. Should be used immediately after removing an element from the queue.
-*/
+// Ensures that if there are elements in the queue, they will appear first.
+// Is run after each removal so only has to be able to push one spot at most.
 static void queue_push_to_front(){
     for (int i=0; i<(QUEUE_NUMBER_OF_FLOORS-1); ++i){
         if (queue[i] == -1){
@@ -70,6 +61,7 @@ static void queue_push_to_front(){
         }
     }
 }
+
 void queue_clear_floor(int floor){
     // Remove floor from arrays:
     requests_up[floor] = false;
@@ -83,7 +75,6 @@ void queue_clear_floor(int floor){
     // Rearrange queue:
     queue_push_to_front();
 }
-
 
 bool queue_read_floor(int floor, QueueMovement dir){
     // Cab order to floor, should always stop:
